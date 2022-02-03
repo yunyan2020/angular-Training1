@@ -54,6 +54,22 @@
     <td mat-cell *matCellDef="let person"> {{person.city}} </td>
   </ng-container>
 
+  <!-- Employment Year Column -->
+  <ng-container matColumnDef="employmentYear">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by employmentYear">
+      Employment Year
+    </th>
+    <td mat-cell *matCellDef="let person"> {{person.employmentYear}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="salary">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by salary">
+      <mat-icon>attach_money</mat-icon>
+      Salary
+    </th>
+    <td mat-cell *matCellDef="let person"> {{person.salary}} </td>
+  </ng-container>
+
 
   <ng-container matColumnDef="menu">
     <th mat-header-cell *matHeaderCellDef> Menu </th>

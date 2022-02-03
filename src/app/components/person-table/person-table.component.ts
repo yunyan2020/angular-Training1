@@ -19,7 +19,7 @@ export class PersonTableComponent implements OnChanges {
   @Output() eventDeletePerson = new EventEmitter<number>();
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   
-  displayedColumns: string[] = ['id', 'name', 'phoneNr','city','menu'];
+  displayedColumns: string[] = ['id', 'name', 'phoneNr', 'city','employmentYear','salary','menu'];
   dataSource!: MatTableDataSource<IPerson>;
   selectedValue!: string;
   filteredPersons!: IPerson[];

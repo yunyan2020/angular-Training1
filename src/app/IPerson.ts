@@ -5,3 +5,8 @@ export interface IPerson{
   city: string;
 }
 
+export interface ITableItem extends IPerson {
+  employmentYear: string;
+  salary: number;
+}
+

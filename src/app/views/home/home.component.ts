@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PersonService } from 'src/app/data/person.service';
-import { IPerson } from 'src/app/IPerson';
+import { IEmploymentData } from 'src/app/IEmploymentData';
+import { IPerson, ITableItem } from 'src/app/IPerson';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,9 @@ import { IPerson } from 'src/app/IPerson';
 })
 export class HomeComponent implements OnInit {
   persons!: IPerson[];
+  tableItems: ITableItem[] = [];
+  employment!: IEmploymentData;
+  personAndEmployments!: ITableItem;
   loadingPersonTableData!: boolean;
 
   constructor(
@@ -22,9 +26,11 @@ export class HomeComponent implements OnInit {
     this._personService.getPeople().subscribe(
       (people) => {
         this.persons = people;
+        this.getEmploymentData();
         this.loadingPersonTableData = false;
       }
     ); 
+
     
    }
 
@@ -41,6 +47,26 @@ export class HomeComponent implements OnInit {
 
   onClickAddPerson() {
     this.router.navigate([`/add-person`]);
+  }
+
+  getEmploymentData() {
+    this.persons.map((p) => {
+      this._personService.getEmploymentData(p.id).subscribe(
+        (employment) => {
+          this.employment = employment;
+        }
+      )
+      this.personAndEmployments = {
+        id: p.id,
+        name: p.name,
+        city: p.city,
+        phoneNr: p.phoneNr,
+        employmentYear: this.employment.employmentYear,
+        salary: this.employment.salary
+      }
+      this.tableItems.push(this.personAndEmployments)
+    }
+    )    
   }
 
 }
