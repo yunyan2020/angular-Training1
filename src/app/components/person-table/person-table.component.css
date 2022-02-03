@@ -1,0 +1,12 @@
+table {
+  width: 50%;  
+  margin-left: 50px;
+}
+
+.filterContainer{
+  margin-left: 50px;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}

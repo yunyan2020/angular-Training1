@@ -1,0 +1,16 @@
+<mat-card>    
+  <mat-card-content>
+    <mat-card-header class="cards">
+      <mat-card-title>People maintenance</mat-card-title>
+    </mat-card-header>
+    <mat-card *ngFor="let person of people" class="outer-card">
+      <mat-card-content>
+        <p>Id:{{person.id}}</p>
+        <p>Name:{{person.name}} </p>  
+        <p>Phone Nr:{{person.phoneNr}} </p>
+        <button mat-button class="mat-button" (click)="openEditPerson(person.id)">Edit</button>
+        <button mat-button class="mat-button" (click)="deletePerson(person.id)">Delete</button>
+      </mat-card-content>
+    </mat-card>
+  </mat-card-content>   
+</mat-card>

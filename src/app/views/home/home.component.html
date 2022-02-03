@@ -1,0 +1,15 @@
+ <div class="container">
+  <button mat-raised-button color="primary"  (click)="onClickAddPerson()">Add Person</button>
+</div> 
+<div *ngIf="loadingPersonTableData" class="loadingData">
+  <mat-spinner >
+    <p>Loading data</p>
+  </mat-spinner>
+  <div style="position:relative; top: -60px; left: 30px;">Loading data</div>
+</div>
+
+<app-person-table *ngIf="!loadingPersonTableData"
+  [persons] ="persons"
+  (eventDeletePerson) = "onEventDeletePerson($event)"
+>
+</app-person-table>

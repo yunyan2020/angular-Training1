@@ -1,0 +1,31 @@
+<mat-card> 
+  <mat-card-title>Add Person</mat-card-title>
+  <form class="add-person-form" (ngSubmit)="onAddPerson()">  
+    <br />
+    <mat-form-field appearance="outline" class="form-control">
+      <mat-label for="text">Name</mat-label>
+      <input matInput type="text" name="personName" id="personName" placeholder="Person Name" [(ngModel)]="personName"
+        required />
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+
+    <br />
+    <mat-form-field appearance="outline" class="form-control">
+      <mat-label for="text">Phone Number</mat-label>
+      <input matInput type="text" name="phoneNr" id="phoneNr" placeholder="Telephone Number"
+        [(ngModel)]="phoneNr" required />
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="outline" class="form-control">
+      <mat-label for="text">City</mat-label>
+      <input matInput type="text" name="city" id="city" placeholder="City" [(ngModel)]="city"
+        required />
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <br />
+    <button mat-raised-button color="primary" type="submit" >
+      Add
+    </button>
+  </form>
+</mat-card>
