@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { PersonService } from 'src/app/data/person.service';
 import { IEmploymentData } from 'src/app/IEmploymentData';
 import { IPerson, ITableItem } from 'src/app/IPerson';
-import { map } from 'rxjs';
+import { forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +28,8 @@ export class HomeComponent implements OnInit {
     this._personService.getPeople().subscribe(
       (people) => {
         this.persons = people;
-        this.getEmploymentData();
+        this.getEmploymentData2();
+        // this.getEmploymentData();
         this.loadingPersonTableData = false;
       }
     );
@@ -42,7 +43,8 @@ export class HomeComponent implements OnInit {
     this._personService.deletePerson(personId).subscribe( 
       (people) => {
         this.persons = people;  
-        this.getEmploymentData();
+       // this.getEmploymentData();
+        this.getEmploymentData2();
       }
     );
   }
@@ -67,14 +69,29 @@ export class HomeComponent implements OnInit {
         employmentYear: this.employment.employmentYear,
         salary: this.employment.salary
       }
-      this.tableItems.push(this.personAndEmployments)
-      
+      this.tableItems.push(this.personAndEmployments)      
     }
     )    
   }
 
-  getEmploymentData2() {
-    
+  getEmploymentData2() {    
+    this.tableItems = [];  
+    const getEmploymentCalls = this.persons.map((person) => this._personService.getEmploymentData(person.id));
+    forkJoin(getEmploymentCalls).subscribe((empoloyments) => {
+      console.log(empoloyments);  
+      this.persons.map((p) => {
+        let index = empoloyments.findIndex((e) => e.personId === p.id)
+        this.personAndEmployments = {
+          id: p.id,
+          name: p.name,
+          city: p.city,
+          phoneNr: p.phoneNr,
+          employmentYear: empoloyments[index].employmentYear,
+          salary: empoloyments[index].salary
+        }
+        this.tableItems.push(this.personAndEmployments)
+      })
+    })
   }
 
 }
