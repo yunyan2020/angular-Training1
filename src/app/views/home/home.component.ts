@@ -40,7 +40,8 @@ export class HomeComponent implements OnInit {
   onEventDeletePerson(personId: number):void{
     this._personService.deletePerson(personId).subscribe( 
       (people) => {
-        this.persons =people;
+        this.persons = people;
+        this.getEmploymentData();
       }
     );
   }
@@ -50,6 +51,7 @@ export class HomeComponent implements OnInit {
   }
 
   getEmploymentData() {
+    this.tableItems = [];
     this.persons.map((p) => {
       this._personService.getEmploymentData(p.id).subscribe(
         (employment) => {
