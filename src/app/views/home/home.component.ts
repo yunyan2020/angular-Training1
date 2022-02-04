@@ -61,11 +61,7 @@ export class HomeComponent implements OnInit {
           this.employment = employment;
         }
       )
-      this.personAndEmployments = {
-        id: p.id,
-        name: p.name,
-        city: p.city,
-        phoneNr: p.phoneNr,
+      this.personAndEmployments = {...p,
         employmentYear: this.employment.employmentYear,
         salary: this.employment.salary
       }
@@ -81,11 +77,7 @@ export class HomeComponent implements OnInit {
       console.log(empoloyments);  
       this.persons.map((p) => {
         let index = empoloyments.findIndex((e) => e.personId === p.id)
-        this.personAndEmployments = {
-          id: p.id,
-          name: p.name,
-          city: p.city,
-          phoneNr: p.phoneNr,
+        this.personAndEmployments = {...p,
           employmentYear: empoloyments[index].employmentYear,
           salary: empoloyments[index].salary
         }
