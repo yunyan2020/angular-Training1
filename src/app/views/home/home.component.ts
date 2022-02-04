@@ -11,7 +11,7 @@ import { map } from 'rxjs';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  persons!: IPerson[];
+  persons!: IPerson[] ;
   tableItems: ITableItem[] = [];
   employment!: IEmploymentData;
   personAndEmployments!: ITableItem;
@@ -23,14 +23,15 @@ export class HomeComponent implements OnInit {
   )
   {
     this.loadingPersonTableData = true
+    console.log("this.persons", this.persons);
+    
     this._personService.getPeople().subscribe(
       (people) => {
         this.persons = people;
         this.getEmploymentData();
         this.loadingPersonTableData = false;
       }
-    ); 
-
+    );
     
    }
 
@@ -40,7 +41,8 @@ export class HomeComponent implements OnInit {
   onEventDeletePerson(personId: number):void{
     this._personService.deletePerson(personId).subscribe( 
       (people) => {
-        this.persons =people;
+        this.persons = people;  
+        this.getEmploymentData();
       }
     );
   }
@@ -49,7 +51,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate([`/add-person`]);
   }
 
-  getEmploymentData() {
+  getEmploymentData() {  
+    this.tableItems = [];
     this.persons.map((p) => {
       this._personService.getEmploymentData(p.id).subscribe(
         (employment) => {
@@ -65,8 +68,13 @@ export class HomeComponent implements OnInit {
         salary: this.employment.salary
       }
       this.tableItems.push(this.personAndEmployments)
+      
     }
     )    
+  }
+
+  getEmploymentData2() {
+    
   }
 
 }

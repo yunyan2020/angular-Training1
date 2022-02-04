@@ -38,6 +38,7 @@ export class PersonTableComponent implements OnChanges {
    
 
   onDelete(person: IPerson) {
+    console.log("person.id", person.id);    
     this.eventDeletePerson.emit(person.id)    
   }
 
