@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
       (people) => {
         this.persons = people;
         this.getEmploymentData2();
-        // this.getEmploymentData();
+        //this.getEmploymentData();
         this.loadingPersonTableData = false;
       }
     );
@@ -43,8 +43,8 @@ export class HomeComponent implements OnInit {
     this._personService.deletePerson(personId).subscribe( 
       (people) => {
         this.persons = people;  
-       // this.getEmploymentData();
-        this.getEmploymentData2();
+        this.getEmploymentData();
+        //this.getEmploymentData2();
       }
     );
   }
@@ -61,9 +61,20 @@ export class HomeComponent implements OnInit {
           this.employment = employment;
         }
       )
-      this.personAndEmployments = {...p,
-        employmentYear: this.employment.employmentYear,
-        salary: this.employment.salary
+      if (this.employment) {
+        this.personAndEmployments = {
+          ...p,
+          employmentYear: this.employment.employmentYear,
+          salary: this.employment.salary
+        }
+       
+      } else 
+      {
+        this.personAndEmployments = {
+          ...p,
+          employmentYear: "",
+          salary: 0
+        }
       }
       this.tableItems.push(this.personAndEmployments)      
     }
