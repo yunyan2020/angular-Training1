@@ -25,6 +25,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarComponent } from './components/mat-toolbar/mat-toolbar.component';
+import { PersonListNewComponent } from './components/person-list-new/person-list-new.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     EditPersonComponent,
     AddPersonComponent,
     HomeComponent,
-    PersonTableComponent,   
+    PersonTableComponent,
+    MatToolbarComponent,
+    PersonListNewComponent,   
   ],
   imports: [
     BrowserModule,
