@@ -65,7 +65,6 @@ export class PersonService {
   }
 
   addPerson(person: IPerson): Observable<IPerson[]> {
-    console.log("person", person)
     PEOPLE.push(person);
     const ids = PEOPLE.map(p => { return p.id })
     personMaxId = Math.max(...ids) + 1;
