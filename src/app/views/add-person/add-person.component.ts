@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PersonService } from 'src/app/data/person.service';
 
@@ -15,7 +16,8 @@ export class AddPersonComponent implements OnInit {
 
   constructor(
     public _personService: PersonService,
-    private router:Router
+    private router: Router,
+    public dialogRef: MatDialogRef<AddPersonComponent>
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +45,8 @@ export class AddPersonComponent implements OnInit {
     this._personService.addPerson(personInfo).subscribe(
       (people) => {
         console.log("people", people);
-        this.router.navigate(['/']);
+        this.dialogRef.close(people);
+       //  this.router.navigate(['/']);
       }
     )
 

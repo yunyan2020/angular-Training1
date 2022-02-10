@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, timer } from 'rxjs';
+import { map, Subject, timer } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { IEmploymentData } from '../IEmploymentData';
@@ -31,8 +31,11 @@ let personMaxId = Math.max(...ids) + 1;
 
 export class PersonService {
   maxPersonId!: number;
+  public $addPersonEvent = new Subject<IPerson[]>();
 
-  constructor() { }
+  constructor() {       
+   }
+ 
 
   getPeople(): Observable<IPerson[]> {
     return timer(1000).pipe(map(n => PEOPLE))
@@ -51,7 +54,7 @@ export class PersonService {
     return personMaxId;
   }
 
-  updatePersonName(person: IPerson): Observable<IPerson[]> {
+  updatePerson(person: IPerson): Observable<IPerson[]> {
     console.log("person", person)
     for (let i = 0; i < PEOPLE.length; i++) {
       if (PEOPLE[i].id === person.id) {
@@ -68,6 +71,7 @@ export class PersonService {
     PEOPLE.push(person);
     const ids = PEOPLE.map(p => { return p.id })
     personMaxId = Math.max(...ids) + 1;
+    this.$addPersonEvent.next(PEOPLE);
     return of(PEOPLE);
   }
 

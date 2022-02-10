@@ -44,12 +44,12 @@ export class EditPersonComponent implements OnInit {
       city:this.city
     }
     console.log("personInfo", personInfo)
-    this._personService.updatePersonName(personInfo).subscribe(
+    this._personService.updatePerson(personInfo).subscribe(
       (people) => {
         console.log("people", people);
         this.dialogRef.close(people);
       },
-    )
+    )  
 
   }
 

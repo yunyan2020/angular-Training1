@@ -34,6 +34,16 @@ export class PersonListNewComponent implements OnInit {
       }
     );
 
+    this._personService.$addPersonEvent.subscribe(
+      (people) => {
+        this.persons = people;
+       // this.getEmploymentData2();
+       this.getEmploymentData();
+        this.loadingPersonTableData = false;
+      }
+    );
+
+
   }
 
   ngOnInit(): void {
@@ -43,8 +53,8 @@ export class PersonListNewComponent implements OnInit {
     this._personService.deletePerson(personId).subscribe(
       (people) => {
         this.persons = people;
-        // this.getEmploymentData();
-        this.getEmploymentData2();
+        this.getEmploymentData();
+       // this.getEmploymentData2();
       }
     );
   }
@@ -82,12 +92,24 @@ export class PersonListNewComponent implements OnInit {
     forkJoin(getEmploymentCalls).subscribe((empoloyments) => {
       console.log(empoloyments);
       this.persons.map((p) => {
-        let index = empoloyments.findIndex((e) => { if (e) { e.personId === p.id } })
-        this.personAndEmployments = {
-          ...p,
-          employmentYear: empoloyments[index].employmentYear,
-          salary: empoloyments[index].salary
-        }
+        let index = empoloyments.findIndex((e) => { e.personId === p.id })
+        console.log("index",index);
+        if (index !== -1) {
+          this.personAndEmployments = {
+            ...p,
+            employmentYear: empoloyments[index].employmentYear,
+            salary: empoloyments[index].salary
+          }
+        } else
+        {
+          this.personAndEmployments = {
+            ...p,
+            employmentYear: "",
+            salary: 0
+          }
+          
+          }
+        
         this.tableItems.push(this.personAndEmployments)
       })
     })

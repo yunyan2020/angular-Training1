@@ -47,8 +47,11 @@ export class PersonTableComponent implements OnChanges {
     
     dialogRef.afterClosed().subscribe(
       (persons) => {
+        console.log("persons", persons)
         if (persons) {
           this.persons = persons;
+          this.dataSource = new MatTableDataSource(this.persons);
+          this.dataSource.sort = this.sort;
         }
       }
     );
